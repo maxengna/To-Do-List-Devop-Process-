@@ -5,7 +5,7 @@ services:
       context: ./Jenkins
       dockerfile: dockerfile
     ports:
-      - 8080:8080
+      - 8082:8080
       - 50000:50000
      # - 50183:50183
 
