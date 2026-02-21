@@ -2,7 +2,7 @@ version: '3'
 
 services: 
   mysql:
-    image: omartarekabdelall/todo-list-app:mysql
+    image: omartarekabdelall/todo-list-app:database
     ports:
       - 3000:3306
     environment:

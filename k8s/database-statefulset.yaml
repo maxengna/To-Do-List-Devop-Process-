@@ -66,7 +66,7 @@ spec:
     spec:
       containers:
       - name: mysql-container
-        image: omartarekabdelall/todo-list-app:mysql
+        image: omartarekabdelall/todo-list-app:database-78
 #        imagePullPolicy: Always
         ports:
         - containerPort: 3306
