@@ -69,7 +69,7 @@ export default function App(){
       <form onSubmit={handleSubmit} className="new-item-form">
         <div className="form-row">
         
-          <label htmlFor="todo"> Todo </label> 
+          <label htmlFor="todo"> Todo Test </label> 
           <input 
             type="text" id="todo"
             onChange={(event)=> { // Update the value of the const todo when entering a new input 
