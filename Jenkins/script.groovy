@@ -1,11 +1,9 @@
 
 def buildImage() {
 
-            echo "add group docker to jenkins user"
-            sh "sudo usermod -aG docker jenkins"
-
-            echo "switch group docker"
-            sh "newgrp docker"
+            echo "Test if Jenkins can access Docker Daemon"
+            sh "docker version"
+            sh "docker ps"
 
             echo 'Building Frontend image Process'
             sh "docker build -t ${FRONTEND_IMAGE}${env.BUILD_NUMBER} ./Frontend"
