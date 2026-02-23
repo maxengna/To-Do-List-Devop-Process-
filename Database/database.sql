@@ -12,6 +12,6 @@ CREATE TABLE `todolist`.`todoss` (
   `Tag` TEXT(255) NULL,
   PRIMARY KEY (`id`));
 
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'omar1234';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'max1234';
 FLUSH PRIVILEGES;
 

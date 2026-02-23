@@ -1,4 +1,3 @@
-
 FROM mysql:latest
 
 #ENV MYSQL_ROOT_PASSWORD =omar1234

@@ -45,13 +45,13 @@ def githubPush() {
      
     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
 
-        sh 'git config --global user.email "omartarekabdelall@gmail.com" '
-        sh 'git config --global user.name "Jenkins" '
+        sh 'git config --global user.email "phanupong.w2019@gmail.com" '
+        sh 'git config --global user.name "maxengna" '
         sh 'git status'
         sh 'git branch'
         sh 'git config --list'
 
-        sh "git remote set-url origin https://$GITHUB_TOKEN@github.com/Omar-tarek3/TodoList-App.git"
+        sh "git remote set-url origin https://$GITHUB_TOKEN@github.com/maxengna/To-Do-List-Devop-Process.git"
         sh "git add . "
         sh 'git commit -m "jenkins pipeline: update k8s manifests" '
         sh "git push origin HEAD:master"
