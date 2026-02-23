@@ -1,7 +1,7 @@
 
 def buildImage() {
             
-            echo 'Building Frontend image'
+            echo 'Building Frontend image Process'
             sh "docker build -t ${FRONTEND_IMAGE}${env.BUILD_NUMBER} ./Frontend"
 
             echo 'Building Backend image'
