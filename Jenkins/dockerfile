@@ -18,7 +18,7 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s
 
 # RUN apt-get install -y iputils-ping && rm -rf /var/lib/apt/lists/*
 
-# test
+
 # RUN touch /var/run/docker.sock
 # RUN chmod 666 /var/run/docker.sock
 
