@@ -1,5 +1,4 @@
 FROM jenkins/jenkins:latest
-#ARG path
 
 USER root
 
