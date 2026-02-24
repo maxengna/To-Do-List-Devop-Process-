@@ -4,18 +4,24 @@ FROM jenkins/jenkins:latest
 USER root
 
 RUN apt-get update && \
-    apt-get install -y curl iputils-ping docker.io && \
-    rm -rf /var/lib/apt/lists/* 
+    apt-get install -y git docker.io curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# RUN apt-get update && \
+#     apt-get install -y curl iputils-ping docker.io && \
+#     rm -rf /var/lib/apt/lists/* 
+
+RUN usermod -aG 0 jenkins
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
 
-RUN apt-get install -y iputils-ping && rm -rf /var/lib/apt/lists/*
+# RUN apt-get install -y iputils-ping && rm -rf /var/lib/apt/lists/*
 
 
-RUN touch /var/run/docker.sock
-RUN chmod 666 /var/run/docker.sock
+# RUN touch /var/run/docker.sock
+# RUN chmod 666 /var/run/docker.sock
 
 USER jenkins
 
