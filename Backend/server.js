@@ -14,7 +14,7 @@ const db = mysql.createConnection({
     port: "3306" , 
 
     user: "root",
-    password: "omar1234", //"23690892"omar1234
+    password: "max1234", //"23690892"omar1234
     database: "todolist" //todos-db
 })
  
