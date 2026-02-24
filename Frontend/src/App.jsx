@@ -118,7 +118,7 @@ export default function App(){
            />
           
         </div>
-        <button onClick={addTodo} className="btn"> Add </button>
+        <button onClick={addTodo} className="btn"> Test Add </button>
         <button onClick={getTodoList} className="btn"> TodoList</button>
         </form>
         <h1 className="header">Todo-List</h1>
