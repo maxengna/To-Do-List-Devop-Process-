@@ -14,7 +14,6 @@ pipeline {
                     env.BACKEND_IMAGE = "maxdev888/todo-list-app:backend-"
                     env.DATABASE_IMAGE = "maxdev888/todo-list-app:database-"
                     env.GITHUB_TOKEN = credentials('github-token')
-                    //TEST = credentials('test')
                 }}
         }
 
