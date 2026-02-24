@@ -4,11 +4,8 @@ FROM jenkins/jenkins:latest
 USER root
 
 RUN apt-get update && \
- apt-get -qy full-upgrade && \
- apt-get install -y -qy curl && \
- curl https://get.docker.com/ > dockerinstall && \
- chmod 777 dockerinstall && \
- ./dockerinstall 
+    apt-get install -y curl iputils-ping docker.io && \
+    rm -rf /var/lib/apt/lists/* 
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod +x ./kubectl && \
