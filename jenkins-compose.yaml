@@ -1,7 +1,7 @@
 version: '3'
 services:
   jenkins:
-    user: root
+    user: root  # Run Jenkins as root to allow Docker commands in the container
     build:
       context: ./Jenkins
       dockerfile: dockerfile
