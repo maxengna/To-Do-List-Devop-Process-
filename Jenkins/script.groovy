@@ -37,7 +37,6 @@ def updateK8s() {
 def githubPush() {
     echo 'Pushing K8s manifests to github'
 
-    // withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
     withCredentials([usernamePassword(
     credentialsId: 'github-token',
     usernameVariable: 'GITHUB_USER',
