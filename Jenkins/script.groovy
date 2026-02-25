@@ -42,8 +42,8 @@ def githubPush() {
     credentialsId: 'github-token',
     usernameVariable: 'GITHUB_USER',
     passwordVariable: 'GITHUB_PASS'
-)]) {
-    {
+    )]) {
+    
         sh'''
             git config --global user.email "phanupong.w2019@gmail.com"
             git config --global user.name "maxengna"
@@ -58,7 +58,6 @@ def githubPush() {
             git pull origin master
         '''
     }
-}
 
     return this
-    }
+}
