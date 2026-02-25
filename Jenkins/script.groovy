@@ -49,8 +49,8 @@ def githubPush() {
             git config --list
             git branch
             git status
-            git add . 
-            git commit -m "jenkins pipeline: update k8s manifests"
+            git add . || echo "No changes to commit"
+            git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
             echo "$GITHUB_USER"
             echo "$GITHUB_Token"
             git pull https://$GITHUB_Token@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git master --rebase
