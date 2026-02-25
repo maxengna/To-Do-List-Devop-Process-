@@ -52,6 +52,7 @@ def githubPush() {
             git add . 
             git commit -m "jenkins pipeline: update k8s manifests"
             echo "$GITHUB_USER"
+            echo "$GITHUB_Token"
             git pull https://$GITHUB_Token@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git master --rebase
             git push  https://$GITHUB_Token@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git HEAD:master
  
