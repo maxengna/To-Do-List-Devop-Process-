@@ -50,14 +50,13 @@ def githubPush() {
             git status
             git branch
             git config --list
-
-            git remote set-url origin https://$GITHUB_PASS@github.com/maxengna/To-Do-List-Devop-Process.git
-            git add .
+            git remote set-url origin https://$GITHUB_USER:$GITHUB_PASS@github.com/maxengna/To-Do-List-Devop-Process.git            git add .
             git commit -m "jenkins pipeline: update k8s manifests"
-            git push origin HEAD:master
-            git pull origin master
+            git push origin HEAD:main
+            git pull origin main
         '''
     }
 
-    return this
 }
+
+ return this
