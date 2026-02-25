@@ -53,9 +53,9 @@ def githubPush() {
             git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
             echo "$GITHUB_USER"
             echo "$GITHUB_Token"
-            git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Devop-Process.git
-            git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git master --rebase
-            git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git HEAD:master
+            git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Devop-Process-.git
+            git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Devop-Process-.git master --rebase
+            git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Devop-Process-.git HEAD:master
  
         """
     }
