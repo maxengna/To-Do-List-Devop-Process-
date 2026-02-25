@@ -40,7 +40,7 @@ def githubPush() {
     withCredentials([usernamePassword(
     credentialsId: 'github-token',
     usernameVariable: 'GITHUB_USER',
-    passwordVariable: 'GITHUB_PASS'
+    passwordVariable: 'GITHUB_Token'
     )]) {
     
         sh"""
@@ -51,8 +51,8 @@ def githubPush() {
             git status
             git add . 
             git commit -m "jenkins pipeline: update k8s manifests"
-            git pull https://$GITHUB_USER:$GITHUB_PASS@github.com/maxengna/To-Do-List-Devop-Process.git master --rebase
-            git push  https://$GITHUB_USER:$GITHUB_PASS@github.com/maxengna/To-Do-List-Devop-Process.git HEAD:master
+            git pull https://$GITHUB_Token@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git master --rebase
+            git push  https://$GITHUB_Token@github.com/$GITHUB_USER/To-Do-List-Devop-Process.git HEAD:master
  
         """
     }
