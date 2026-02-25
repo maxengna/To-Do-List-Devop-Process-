@@ -46,10 +46,12 @@ def githubPush() {
         sh'''
             git config --global user.email "phanupong.w2019@gmail.com"
             git config --global user.name "maxengna"
-            git status
             git branch
             git config --list
             git remote set-url origin https://$GITHUB_USER:$GITHUB_PASS@github.com/maxengna/To-Do-List-Devop-Process.git            git add .
+            
+            git status
+            git add .
             git commit -m "jenkins pipeline: update k8s manifests"
             git push origin HEAD:main
             git pull origin main
