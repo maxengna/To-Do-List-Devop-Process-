@@ -19,7 +19,7 @@ spec:
         tier: frontend
     spec:
       containers:
-      - image: maxdev888/todo-list-app:frontend-78
+      - image: maxdev888/todo-list-app:frontend-18
         name: frontend-container
         ports:
         - containerPort: 4173
