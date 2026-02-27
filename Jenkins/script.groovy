@@ -26,12 +26,33 @@ def pushImage() {
         }
 }
 
-def updateK8s() {
-    sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' k8s/backend-deployment.yaml"
-    sh'cat k8s/backend-deployment.yaml'
 
-    sh "sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' k8s/frontend-deployment.yaml"
-    sh'cat k8s/frontend-deployment.yaml'
+def updateTag() {
+   echo 'Cloning K8s manifests repository'
+
+   withCredentials([usernamePassword(
+    credentialsId: 'github-token',
+    usernameVariable: 'GITHUB_USER',
+    passwordVariable: 'GITHUB_Token'
+    )]) {
+
+        sh """
+            git clone https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git ${MANIFEST_REPO} 
+        """
+        updateK8s()
+        githubPush()
+    }
+
+}
+
+
+
+def updateK8s() {
+    sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml"
+    sh "cat ${MANIFEST_REPO}/argocd/backend-deployment.yaml"
+
+    sh "sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml"
+    sh "cat ${MANIFEST_REPO}/argocd/frontend-deployment.yaml"
 }
 
 def githubPush() {
@@ -53,10 +74,11 @@ def githubPush() {
             git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
   
             echo "$GITHUB_USER"
-  
-            git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Devop-Process-.git
-            git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/${GITHUB_USER}/To-Do-List-Devop-Process-.git master --rebase
-            git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/${GITHUB_USER}/To-Do-List-Devop-Process-.git HEAD:master
+
+            echo "$GITHUB_Token"
+            git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git
+            git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git master --rebase
+            git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git HEAD:master
  
         """
     }
