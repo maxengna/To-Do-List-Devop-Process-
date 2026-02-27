@@ -7,16 +7,16 @@ spec:
   project: default
   source:
     repoURL: https://github.com/maxengna/To-Do-List-Devop-Process-.git
-    targetRevision: main
+    targetRevision: master
     path: k8s 
   destination:
     server: https://kubernetes.default.svc
     namespace: k8-deployment
 
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
        
