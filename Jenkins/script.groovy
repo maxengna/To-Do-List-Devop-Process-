@@ -26,7 +26,6 @@ def pushImage() {
         }
 }
 
-
 def updateTag() {
    echo 'Cloning K8s manifests repository'
 
@@ -37,7 +36,7 @@ def updateTag() {
     )]) {
 
         sh """
-            git clone https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git ${MANIFEST_REPO} 
+            git clone https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git ${MANIFEST_REPO}
         """
         updateK8s()
         githubPush()
@@ -45,18 +44,21 @@ def updateTag() {
 
 }
 
-
-
 def updateK8s() {
-    
-    sh "cd ${MANIFEST_REPO}"
-    sh "pwd"
-    sh "ls -la ${MANIFEST_REPO}/argocd"
-    sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml"
-    sh "cat ${MANIFEST_REPO}/argocd/backend-deployment.yaml"
 
-    sh "sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml"
-    sh "cat ${MANIFEST_REPO}/argocd/frontend-deployment.yaml"
+    echo 'Updating K8s manifests with new image tags'
+    
+    dir("${MANIFEST_REPO}") {
+    
+        sh "pwd"
+        sh "ls -la ${MANIFEST_REPO}/argocd"
+        sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml"
+        sh "cat ${MANIFEST_REPO}/argocd/backend-deployment.yaml"
+
+        sh "sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml"
+        sh "cat ${MANIFEST_REPO}/argocd/frontend-deployment.yaml"
+    }
+
 }
 
 def githubPush() {
@@ -67,7 +69,7 @@ def githubPush() {
     usernameVariable: 'GITHUB_USER',
     passwordVariable: 'GITHUB_Token'
     )]) {
-    
+
         sh"""
             git config --global user.email "phanupong.w2019@gmail.com"
             git config --global user.name "maxengna"
@@ -76,14 +78,14 @@ def githubPush() {
             git status
             git add . || echo "No changes to commit"
             git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
-  
+
             echo "$GITHUB_USER"
 
             echo "$GITHUB_Token"
             git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git
             git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git master --rebase
             git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git HEAD:master
- 
+
         """
     }
 
