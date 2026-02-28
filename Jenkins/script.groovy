@@ -50,6 +50,7 @@ def updateTag() {
 def updateK8s() {
     
     sh "cd ${MANIFEST_REPO}"
+    sh "ls -la ${MANIFEST_REPO}"
     sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml"
     sh "cat ${MANIFEST_REPO}/argocd/backend-deployment.yaml"
 
