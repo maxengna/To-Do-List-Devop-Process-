@@ -50,13 +50,16 @@ def updateK8s() {
     
     dir("${MANIFEST_REPO}") {
     
-        sh "pwd"
-        sh "ls -la argocd"
-        sh "sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml"
-        sh "cat ${MANIFEST_REPO}/argocd/backend-deployment.yaml"
+        sh """ 
+        pwd
+        ls -la argocd
+        sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml
+        cat argocd/backend-deployment.yaml
 
-        sh "sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml"
-        sh "cat ${MANIFEST_REPO}/argocd/frontend-deployment.yaml"
+        sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml
+        cat argocd/frontend-deployment.yaml
+        
+        """
     }
 
 }
