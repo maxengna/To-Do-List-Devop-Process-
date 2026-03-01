@@ -65,7 +65,7 @@ def updateK8s() {
 }
 
 def githubPush() {
-    echo 'Pushing K8s manifests to github7'
+    echo 'Pushing K8s manifests to github8'
 
     withCredentials([usernamePassword(
     credentialsId: 'github-token',

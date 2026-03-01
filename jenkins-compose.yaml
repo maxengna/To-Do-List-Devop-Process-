@@ -8,6 +8,8 @@ services:
     ports:
       - 8082:8080
       - 50000:50000
+    # dns:
+    #   - 8.8.8.8
 
 
     volumes:
