@@ -41,10 +41,12 @@ def updateTag() {
 
         dir("${MANIFEST_REPO}") {
 
-            sh """
-                echo 'Updating K8s manifests'
+            echo 'Updating K8s manifests'
 
-                sed -i "s|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${BUILD_NUMBER}|g" argocd/backend-deployment.yaml
+            sh """
+                
+
+                sed -i "s|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g" argocd/backend-deployment.yaml
                 sed -i "s|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${BUILD_NUMBER}|g" argocd/frontend-deployment.yaml
 
                 git config user.email "phanupong.w2019@gmail.com"
