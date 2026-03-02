@@ -41,7 +41,7 @@ def updateTag() {
 
         dir("${MANIFEST_REPO}") {
 
-            echo 'Updating K8s manifests'
+            echo 'Updating K8s manifests1'
 
             sh """
                 
