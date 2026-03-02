@@ -27,71 +27,83 @@ def pushImage() {
 }
 
 def updateTag() {
-   echo 'Cloning K8s manifests repository'
+    echo 'Cloning K8s manifests repository'
 
-   withCredentials([usernamePassword(
-    credentialsId: 'github-token',
-    usernameVariable: 'GITHUB_USER',
-    passwordVariable: 'GITHUB_Token'
+    withCredentials([usernamePassword(
+        credentialsId: 'github-token',
+        usernameVariable: 'GITHUB_USER',
+        passwordVariable: 'GITHUB_Token'
     )]) {
 
         sh """
             git clone https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git ${MANIFEST_REPO}
         """
-        updateK8s()
-        githubPush()
-    }
 
+        dir("${MANIFEST_REPO}") {
+
+            sh """
+                echo 'Updating K8s manifests'
+
+                sed -i "s|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${BUILD_NUMBER}|g" argocd/backend-deployment.yaml
+                sed -i "s|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${BUILD_NUMBER}|g" argocd/frontend-deployment.yaml
+
+                git config user.email "phanupong.w2019@gmail.com"
+                git config user.name "maxengna"
+
+                git add .
+                git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes"
+
+                git pull origin master --rebase
+                git push origin HEAD:master
+            """
+        }
+    }
 }
 
-def updateK8s() {
+// def updateK8s() {
+    // echo 'Updating K8s manifests with new image tags'
 
-    echo 'Updating K8s manifests with new image tags'
-    
-    dir("${MANIFEST_REPO}") {
-    
-        sh """ 
-        pwd
-        ls -la argocd
-        sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml
-        cat argocd/backend-deployment.yaml
+    // dir("${MANIFEST_REPO}") {
 
-        sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml
-        cat argocd/frontend-deployment.yaml
-        
-        """
-    }
+    //     sh """
+    //     pwd
+    //     ls -la argocd
+    //     sed -i 's|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/backend-deployment.yaml
+    //     cat argocd/backend-deployment.yaml
 
-}
+    //     sed -i 's|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g' argocd/frontend-deployment.yaml
+    //     cat argocd/frontend-deployment.yaml
 
-def githubPush() {
-    echo 'Pushing K8s manifests to github9'
+//     """
+// }
+// }
 
-    withCredentials([usernamePassword(
-    credentialsId: 'github-token',
-    usernameVariable: 'GITHUB_USER',
-    passwordVariable: 'GITHUB_Token'
-    )]) {
+// def githubPush() {
+//     echo 'Pushing K8s manifests to github9'
 
-        sh"""
-            git config --global user.email "phanupong.w2019@gmail.com"
-            git config --global user.name "maxengna"
-            git config --list
-            git branch
-            git status
-            git add . || echo "No changes to commit"
-            git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
+//     withCredentials([usernamePassword(
+//     credentialsId: 'github-token',
+//     usernameVariable: 'GITHUB_USER',
+//     passwordVariable: 'GITHUB_Token'
+//     )]) {
+//         sh"""
+//             git config --global user.email "phanupong.w2019@gmail.com"
+//             git config --global user.name "maxengna"
+//             git config --list
+//             git branch
+//             git status
+//             git add . || echo "No changes to commit"
+//             git commit -m "jenkins pipeline: update k8s manifests" || echo "No changes to commit"
 
-            echo "$GITHUB_USER"
+//             echo "$GITHUB_USER"
 
-            echo "$GITHUB_Token"
-            git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git
-            git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git master --rebase
-            git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git HEAD:master
+//             echo "$GITHUB_Token"
+//             git ls-remote https://${GITHUB_USER}:${GITHUB_Token}@github.com/maxengna/To-Do-List-Deploy-.git
+//             git pull https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git master --rebase
+//             git push  https://${GITHUB_USER}:${GITHUB_Token}@github.com/$GITHUB_USER/To-Do-List-Deploy-.git HEAD:master
 
-        """
-    }
+//         """
+//     }
+// }
 
-}
-
- return this
+return this
