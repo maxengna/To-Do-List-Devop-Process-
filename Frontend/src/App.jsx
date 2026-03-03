@@ -1,7 +1,7 @@
 import "./style.css";
 import { useState } from "react";
 import Axios from "axios";
-import axios from "axios";
+
 
 
 export default function App(){
@@ -18,7 +18,7 @@ export default function App(){
 
   const getTodoList = () => {
 
-    Axios.get("http://todolist.app.com/TodoList" , ) .then((response) => { 
+    Axios.get("http://todolist.app.com/api/TodoList" , ) .then((response) => { 
       setTodoList(response.data)
     });
 
@@ -27,7 +27,7 @@ export default function App(){
   
   const addTodo = () =>{
     console.log(todo);
-    Axios.post("http://todolist.app.com/Add" , { // todolist.app as I have a dns etnery to map it localhost (where Ingress controller run).
+    Axios.post("http://todolist.app.com/api/Add" , { // todolist.app as I have a dns etnery to map it localhost (where Ingress controller run).
       todo: todo,
       description: description,
       deadline: deadline,
@@ -46,7 +46,7 @@ export default function App(){
       return currentTodos.filter(todo =>todo.id !== id ) //remove todo from react
     })
 
-    Axios.delete("http://todolist.app.com/Delete/:id".replace(':id', id)) 
+    Axios.delete("http://todolist.app.com/api/Delete/"+id) 
     .then(response => {
       console.log('Row deleted successfully - ID: ', id);
       
