@@ -6,6 +6,8 @@ const app = express()
 app.use(cors())
 app.use(express.json());
 
+const router = express.Router();
+
 
 const db = mysql.createConnection({
 //  use "mysql" & port:3306 to connect to the db in the mysql-container @ port 3306 through the docker-network created by the docker-compose.
@@ -71,6 +73,7 @@ app.delete('/Delete/:id', (req,res)=> {
     );
 });
 
+app.use('/api', router)
 
 app.get('/', (req,res)=>{
     return res.json("Backend");
