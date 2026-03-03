@@ -20,7 +20,7 @@ const db = mysql.createConnection({
     database: "todolist" //todos-db
 })
  
-app.get('/TodoList', (req,res)=>{
+app.get('/api/TodoList', (req,res)=>{
     const sql_query = "SELECT * FROM todolist.todoss";
     db.query(sql_query, (err , data)=>{
         if(err) return res.json(err);
@@ -55,7 +55,7 @@ app.post('/Add', (req,res)=> {
 });
 
 
-app.delete('/Delete/:id', (req,res)=> {
+app.delete('/api/Delete/:id', (req,res)=> {
   
 
     const delete_query = 'DELETE FROM todolist.todoss WHERE todoss.id = ?';
