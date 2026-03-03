@@ -35,7 +35,7 @@ export default function App(){
       status: status,
       tag: tag
     }) .then(() => {
-      console.log("success");
+      console.log("request sent successfully");
     });
   }
 
