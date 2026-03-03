@@ -29,7 +29,7 @@ app.get('/api/TodoList', (req,res)=>{
 
 })
 
-app.post('/Add', (req,res)=> {
+app.post('/api/Add', (req,res)=> {
     const todo = req.body.todo
     const description  = req.body.description
     const deadline = req.body.deadline
@@ -38,8 +38,7 @@ app.post('/Add', (req,res)=> {
     const tag = req.body.tag
 
 
-    
-//`todos-db`.todos
+
     db.query('INSERT INTO todolist.todoss(Todo, Description, Deadline, Priority, Status, Tag ) VALUES(?,?,?,?,?,?)',
     [todo,description,deadline,priority,status,tag] , 
     (err,result) => {
