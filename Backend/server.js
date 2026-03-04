@@ -9,16 +9,39 @@ app.use(express.json());
 const router = express.Router();
 
 
-const db = mysql.createConnection({
-//  use "mysql" & port:3306 to connect to the db in the mysql-container @ port 3306 through the docker-network created by the docker-compose.
-//  use "host.docker.internal" & port:3000 to connect to the db in the mysql-container @ port 3306 through localhost(docker-host), port: 3000.
-    host: "mysql", 
-    port: "3306" , 
+const db = mysql.createPool({
+  host: process.env.DB_HOST || "mysql",   // ใช้ service name ใน k8s
+  port: 3306,
+  user: process.env.DB_USER || "demo",
+  password: process.env.DB_PASSWORD || "dGVzdHVzZXJkZW1v",
+  database: process.env.DB_NAME || "todolist",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-    user: "root",
-    password: "max1234", //"23690892"omar1234
-    database: "todolist" //todos-db
-})
+// ทดสอบการเชื่อมต่อ DB ตอน start app
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error("❌ Database connection failed:", err.message);
+  } else {
+    console.log("✅ Connected to MySQL");
+    connection.release();
+  }
+});
+
+
+
+// const db = mysql.createConnection({
+// //  use "mysql" & port:3306 to connect to the db in the mysql-container @ port 3306 through the docker-network created by the docker-compose.
+// //  use "host.docker.internal" & port:3000 to connect to the db in the mysql-container @ port 3306 through localhost(docker-host), port: 3000.
+//     host: "mysql", 
+//     port: "3306" , 
+
+//     user: "root",
+//     password: "max1234", //"23690892"omar1234
+//     database: "todolist" //todos-db
+// })
  
 app.get('/api/TodoList', (req,res)=>{
     const sql_query = "SELECT * FROM todolist.todoss";
