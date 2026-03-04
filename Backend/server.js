@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2')
+const mysql = require('mysql2')  // change package to mysql2 to avoid "Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client"
 const cors = require('cors')
 
 const app = express()
