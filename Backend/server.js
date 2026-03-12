@@ -1,3 +1,5 @@
+require('./tracing.js')
+
 const express = require('express');
 const mysql = require('mysql2')  // change package to mysql2 to avoid "Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client"
 const cors = require('cors')
@@ -67,10 +69,12 @@ app.post('/api/Add', (req,res)=> {
     (err,result) => {
         if (err)  {
             console.log(err)
+            res.json({error: "Failed to add todo"})
         } else {
             res.send(" Added to Todo-List")
             console.log("Todo added successfully");
             console.log(req.body);
+            res.json({message: "Todo added successfully", todo: req.body})
         }
     }
     );
@@ -87,8 +91,9 @@ app.delete('/api/Delete/:id', (req,res)=> {
     (err,result) => {
         if (err)  {
             console.log(err)
+            res.json({error: "Failed to delete todo"})
         } else {
-            res.send("Todo Deleted ")
+            res.json({message: "Todo deleted successfully", id: req.params.id})
             console.log("Todo deleted successfully - ID:" ,req.params.id ) 
         }
     }

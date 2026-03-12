@@ -13,5 +13,9 @@ CREATE TABLE `todolist`.`todoss` (
   PRIMARY KEY (`id`));
 
 ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'max1234';
+-- add user for test
+-- CREATE USER 'demo'@'%' IDENTIFIED WITH mysql_native_password BY 'newuser';
+-- GRANT ALL PRIVILEGES ON *.* TO 'demo'@'%' WITH GRANT OPTION;
+-- 
 FLUSH PRIVILEGES;
 
