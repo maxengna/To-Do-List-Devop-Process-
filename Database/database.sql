@@ -12,10 +12,10 @@ CREATE TABLE `todolist`.`todoss` (
   `Tag` TEXT(255) NULL,
   PRIMARY KEY (`id`));
 
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'max1234';
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'maxdev789';
 -- add user for test
--- CREATE USER 'newuser'@'%' IDENTIFIED BY 'password'; 
--- GRANT ALL PRIVILEGES ON mydatabase.* TO 'newuser'@'%';
+CREATE USER 'demo'@'%' IDENTIFIED BY 'maxdev789'; 
+GRANT ALL PRIVILEGES ON mydatabase.* TO 'demo'@'%';
 -- 
 FLUSH PRIVILEGES;
 

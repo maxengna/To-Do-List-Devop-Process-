@@ -12,13 +12,11 @@ RUN npm run build
 
 FROM node:20-alpine AS production 
 
-WORKDIR /react-app/prod
+WORKDIR /react-app
 
-# copy Machine code files from build stage to run stage 
-COPY --from=builder /react-app/dist ./dist
-
-COPY vite.config.js package.json ./
-RUN npm install
+# Copy the entire project context from the builder stage
+# This includes node_modules (with vite binaries) and the dist folder
+COPY --from=builder /react-app .
 
 EXPOSE 4173
 
