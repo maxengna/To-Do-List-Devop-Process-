@@ -18,8 +18,8 @@ WORKDIR /react-app/prod
 COPY --from=builder /react-app/dist ./dist
 
 COPY vite.config.js package.json ./
-RUN npm install --production
-  
+RUN npm install
+
 EXPOSE 4173
 
 CMD [ "npm", "run", "preview" ]
