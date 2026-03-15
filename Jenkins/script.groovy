@@ -46,8 +46,8 @@ def updateTag() {
             sh """
                 
 
-                sed -i "s|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g" argocd/backend-deployment.yaml
-                sed -i "s|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g" argocd/frontend-deployment.yaml
+                sed -i "s|${BACKEND_IMAGE}.*|${BACKEND_IMAGE}${env.BUILD_NUMBER}|g" k8s/apps/backend-deployment.yaml
+                sed -i "s|${FRONTEND_IMAGE}.*|${FRONTEND_IMAGE}${env.BUILD_NUMBER}|g" k8s/apps/frontend-deployment.yaml
 
                 git config user.email "phanupong.w2019@gmail.com"
                 git config user.name "maxengna"
