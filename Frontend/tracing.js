@@ -7,13 +7,13 @@ import { FetchInstrumentation } from '@opentelemetry/instrumentation-fetch'
 import { XMLHttpRequestInstrumentation } from '@opentelemetry/instrumentation-xml-http-request'
 import { DocumentLoadInstrumentation } from '@opentelemetry/instrumentation-document-load'
 
-const provider = new WebTracerProvider()
-
 const exporter = new OTLPTraceExporter({
   url: "http://my-opentelemetry-collector:4318/v1/traces"
 })
 
-provider.addSpanProcessor(new SimpleSpanProcessor(exporter))
+const provider = new WebTracerProvider({
+  spanProcessors: [new SimpleSpanProcessor(exporter)]
+})
 
 provider.register()
 
