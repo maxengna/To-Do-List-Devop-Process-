@@ -71,7 +71,7 @@ app.post('/api/Add', (req,res)=> {
             console.log(err)
             res.json({error: "Failed to add todo"})
         } else {
-            res.send(" Added to Todo-List")
+            // res.send(" Added to Todo-List")
             console.log("Todo added successfully");
             console.log(req.body);
             res.json({message: "Todo added successfully", todo: req.body})
